@@ -1,0 +1,16 @@
+lodgeit:
+  build: .
+  ports:
+    - "5000:5000"
+  volumes:
+    - "./db:/opt/db"
+  environment:
+    # - DBURI=sqlite:////opt/db/lodgeit.db
+    - DBURI=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
+  links:
+    - db:db
+db:
+  image: postgres:9.5
+  volumes:
+    - "./pgdata:/var/lib/postgresql/data"
+
